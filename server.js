@@ -11,6 +11,8 @@ var express 	= require('express'),
 /*SMS DEP*/
 var getMsg 		= require('./sms/getMessages');
 
+/*Filters*/
+var testf 		= require("./filters/testFilter.js");
 /*Setup app*/
 var app        = express(); 
 	app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,7 +30,7 @@ var router = express.Router();
 /*Routes*/
 router.get('/', function(req, res) {
 	getMsg(function(err,data){
-		console.log(data.messages);
+		testf(data.messages["3027776"]);
 	})
 	res.json(["he","231","d"])
 });
