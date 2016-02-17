@@ -8,12 +8,6 @@ var _           = require('underscore'),
 	config      = require('../config');
 
 module.exports = function (cb) {
-	var selectMessages = function (rawMessages, count) {
-		return _.uniq(rawMessages, false, function (value) { return value.contact.number + '|' + value.message })
-		.splice(0, count)
-		.reverse();
-	};
-
 	var decodeMessage = function (messages) {
 		tmp = {};usr = [];
 		messages.forEach(function(m){
@@ -29,24 +23,42 @@ module.exports = function (cb) {
 		};
 	};
 
-	request = request.defaults({
-		baseUrl: config.baseUrl,
-		qs: {email: config.email, password: config.password}
+	var contacts = config.map(function(u){
+		return request.defaults({
+			baseUrl: u.baseUrl,
+			qs: {email: u.email, password: u.password}
+		});
 	});
 
-	request.get('messages', function (err, httpResponse, body) {
+	contacts[0].get('messages', function (err, httpResponse, body) {
 		if (err || httpResponse.statusCode != 200) {
 			console.error('Couldn\'t connect to the API to get the messages');
 			return;
 		}
 
-		var messages = selectMessages(JSON.parse(body).result || {}, config.messageCount);
-
+		var messages = JSON.parse(body|| {result:[]}).result;
 		if (messages.length == 0) {
 			console.error(clc.red('No messages to show'));
 			return;
 		}
-
 		cb(err, decodeMessage(messages));
 	});
+	// contacts.forEach(function(r){
+	// 	var b = [];
+		// request.get('messages', function (err, httpResponse, body) {
+		// 	if (err || httpResponse.statusCode != 200) {
+		// 		console.error('Couldn\'t connect to the API to get the messages');
+		// 		return;
+		// 	}
+
+		// 	var messages = selectMessages(JSON.parse(body).result || {}, config.messageCount);
+
+		// 	if (messages.length == 0) {
+		// 		console.error(clc.red('No messages to show'));
+		// 		return;
+		// 	}
+
+		// 	cb(err, decodeMessage(messages));
+		// });
+	// });
 }
