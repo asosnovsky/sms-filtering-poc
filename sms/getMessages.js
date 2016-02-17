@@ -7,7 +7,7 @@ var _           = require('underscore'),
 	entities    = new Entities(),
 	config      = require('../config');
 
-module.exports = function (uname, cb) {
+module.exports = function (cb) {
 	var selectMessages = function (rawMessages, count) {
 		return _.uniq(rawMessages, false, function (value) { return value.contact.number + '|' + value.message })
 		.splice(0, count)
@@ -15,16 +15,18 @@ module.exports = function (uname, cb) {
 	};
 
 	var decodeMessage = function (messages) {
-		tmp = {};
+		tmp = {};usr = [];
 		messages.forEach(function(m){
-			if(!tmp[m.contact.id]){tmp[m.contact.id]=[];}
+			if(!tmp[m.contact.id]){tmp[m.contact.id]=[];usr.push(m.contact)};
 			tmp[m.contact.id].push({
 				message: m.message,
-				contact: m.contact,
 				status : m.status
 			});
 		});
-		return tmp;
+		return {
+			messages: tmp,
+			usr: 	usr
+		};
 	};
 
 	request = request.defaults({

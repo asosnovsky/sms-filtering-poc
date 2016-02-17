@@ -27,8 +27,8 @@ var router = express.Router();
 
 /*Routes*/
 router.get('/', function(req, res) {
-	getMsg('Ari',function(err,data){
-		console.log(data);
+	getMsg(function(err,data){
+		console.log(data.messages);
 	})
 	res.json(["he","231","d"])
 });
@@ -36,4 +36,4 @@ router.get('/', function(req, res) {
 app.use('/m', router);
 
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log('Interceptor Server is on ' + port);
