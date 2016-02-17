@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
 	getMsg('Ari',function(err,data){
 		console.log(data);
 	})
-	res.csv([1,2,3])
+	res.json(["he","231","d"])
 });
 
 app.use('/m', router);
