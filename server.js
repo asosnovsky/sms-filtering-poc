@@ -28,7 +28,7 @@ var router = express.Router();
 /*Routes*/
 router.get('/', function(req, res) {
 	getMsg(function(err,data){
-		console.log(data.messages);
+		console.log(data);
 	})
 	res.json(["he","231","d"])
 });

@@ -28,11 +28,12 @@ module.exports = function (cb) {
 			usr: 	usr
 		};
 	};
-
-	request = request.defaults({
-		baseUrl: config.baseUrl,
-		qs: {email: config.email, password: config.password}
-	});
+	var contacts = config.map(function(u){
+		return request.defaults({
+			baseUrl: u.baseUrl,
+			qs: {email: u.email, password: u.password}
+		});
+	})
 
 	request.get('messages', function (err, httpResponse, body) {
 		if (err || httpResponse.statusCode != 200) {
