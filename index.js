@@ -1,5 +1,4 @@
 #!/usr/bin/node
-
 var _ = require('underscore'),
     clc = require('cli-color'),
     async = require('async'),
