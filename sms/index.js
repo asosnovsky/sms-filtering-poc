@@ -1,12 +1,13 @@
-#!/usr/bin/node
-var _ = require('underscore'),
-    clc = require('cli-color'),
-    async = require('async'),
-    request = require('request'),
-    read = require('read'),
-    Entities = require('html-entities').AllHtmlEntities,
-    entities = new Entities(),
-    config = require('./config');
+// #!/usr/bin/node
+
+var _           = require('underscore'),
+    clc         = require('cli-color'),
+    async       = require('async'),
+    request     = require('request'),
+    read        = require('read'),
+    Entities    = require('html-entities').AllHtmlEntities,
+    entities    = new Entities(),
+    config      = require('./config');
 
 request = request.defaults({
     baseUrl: config.baseUrl,
@@ -60,8 +61,11 @@ var promptSend = function (messages) {
             }
 
             content = result;
-
+            
             read({prompt: 'Are you sure? This will go to: ' + number + '. (Y/N)'}, next);
+            // if(testMessage(content)){
+            //     result = 'n';
+            // };
         },
         function (result, isDefault, next) {
             if (result.toUpperCase() !== 'Y') {
