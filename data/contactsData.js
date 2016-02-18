@@ -13,12 +13,11 @@ module.exports.make = function(contactData) {
 		});
 
 		cData = Object.keys(cData).map(function(number){
-			var ret = {id:[],name:[],class:false,fwords:[]};
+			var ret = {id:[],name:[],group:false,fwords:[]};
 			cData[number].forEach(function(a){
 				ret.id.push(a.id);
 				ret.name.push(a.name);
 				ret.fwords.push(a.fwords);
-				ret.class = a.class;
 			});
 			ret.number = number;
 			ret.id = ret.id.filter(function(elem, pos) {
@@ -30,6 +29,7 @@ module.exports.make = function(contactData) {
 			ret.name = ret.name.filter(function(elem, pos) {
 				return ret.name.indexOf(elem) == pos;
 			})
+			ret["class"] = "NA";
 			return ret;
 		});
 

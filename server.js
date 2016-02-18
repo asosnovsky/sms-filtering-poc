@@ -6,10 +6,12 @@
 var express 	= require('express'),
 	csv 		= require('express-csv'),
 	bodyParser 	= require('body-parser'),
-	fs			= require('fs');
+	fs			= require('fs'),
+	url 		= require('url');
 
 /*SMS DEP*/
-var getMsg 		= require('./sms/getMessages');
+var getMsg 		= require('./sms/getMessages.js');
+var sendMsg		= require('./sms/sendMessage.js');
 
 /*Filters*/
 var filters 	= require("./filters/absfilters.js");
@@ -55,13 +57,24 @@ var classData = {
 }
 
 /*Routes*/
-router.get('/', function(req, res) {
+app.get('/text', function(req, res) {
 	getMsg(function(err,data){
-		res.json(contactsData.make(data.usr));
-	})
+		var query = url.parse(req.url, true).query;
+		sendMsg(query.phone,query.msg,function(err){
+			if(!err) {
+				res.send("success");
+			}	else	{
+				res.send(err);
+			}
+		});
+	});
 });
 
-app.use('/m', router);
+app.get('/get', function(req, res) {
+	getMsg(function(err,data){
+		res.json(contactsData.make(data.usr));
+	});
+});
 
 app.listen(port);
 console.log('Interceptor Server is on ' + port);

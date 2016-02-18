@@ -22,8 +22,7 @@ module.exports.alchohol = function (testString){
 }
 
 module.exports.drugs = function (testString){
-	return  filterMethod(testString,["cocaine","heroin","meth","molly","MDMA","ecstasy" 
-										"tripping balls","tripping","shrooms","magic mushrooms","dope"]);
+	return  filterMethod(testString,["cocaine","heroin","meth","molly","MDMA","ecstasy","tripping balls","tripping","shrooms","magic mushrooms","dope"]);
 }
 
 module.exports.marijuana = function (testString){
@@ -31,8 +30,7 @@ module.exports.marijuana = function (testString){
 }
 
 module.exports.criminalActivity = function (testString){
-	return  filterMethod(testString,["steal","stole","rape","crime","carjack","incarcerated","jailed","grand theft auto","murder"
-		                            	"restraining order"]);
+	return  filterMethod(testString,["steal","stole","rape","crime","carjack","incarcerated","jailed","grand theft auto","murder","restraining order"]);
 }
 
 module.exports.sexism = function (testString){
