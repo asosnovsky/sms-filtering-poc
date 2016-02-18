@@ -12,17 +12,13 @@ module.exports.make = function(contactData) {
 			cData[number].push(u);
 		});
 
-		cData = Object.keys(cData).map(function(number){
-			var ret = {id:[],name:[],group:false,fwords:[]};
+		nData = {};
+		Object.keys(cData).forEach(function(number){
+			var ret = {name:[],fwords:[]};
 			cData[number].forEach(function(a){
-				ret.id.push(a.id);
 				ret.name.push(a.name);
 				ret.fwords.push(a.fwords);
 			});
-			ret.number = number;
-			ret.id = ret.id.filter(function(elem, pos) {
-				return ret.id.indexOf(elem) == pos;
-			})
 			ret.fwords = ret.fwords.filter(function(elem, pos) {
 				return ret.fwords.indexOf(elem) == pos;
 			})
@@ -30,10 +26,11 @@ module.exports.make = function(contactData) {
 				return ret.name.indexOf(elem) == pos;
 			})
 			ret["class"] = "NA";
-			return ret;
+			ret["fsets"] = [];
+			nData[number] = ret;
 		});
 
-		fs.writeFileSync('./data/contactData.json',JSON.stringify(cData));
-		return cData;
+		fs.writeFileSync('./data/contactData.json',JSON.stringify(nData));
+		return nData;
 	};
 }

@@ -4,7 +4,7 @@ function filterMethod(string, arr) {
 	var bad = false;
 		arr = arr.map(function(d) {return d.toLowerCase();});
 		
-		string.toLowerCase().split(' ').forEach(function(d){
+		string.toLowerCase().replace(/\"|\'|&|\*|/g,"").split(' ').forEach(function(d){
 			bad = bad || (arr.indexOf(d)>-1);
 		});
 		return bad;
