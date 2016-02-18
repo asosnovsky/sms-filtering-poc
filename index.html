@@ -1,0 +1,27 @@
+<html>
+<head>
+	<title>Messanger</title>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+</head>
+<body>
+	<input type="String" id="number"><input type="text" id="msg"><button id="send">Send</button>
+	<script type="text/javascript">
+		$('#send').on('click',function(data){
+			var number 	= $('#number')[0].value;
+			var msg 	= $('#msg')[0].value;
+			if(isNaN(number))	{alert('Bad Phone Number')};
+			$.ajax('http://localhost:8080/text?phone='+number+"&msg="+msg).then(function(data){
+				if(data.status === "fail") 	{
+					var ask = confirm("are you sure you want to send '" + msg + "' to " + data.contact.name[0] + " YOUR " + data.contact.class + '!!');
+					if(ask) {
+						$.ajax('http://localhost:8080/forcetext?phone='+number+"&msg="+msg).then(function(data){
+							alert(data);
+							alert("idiot...");
+						})
+					}
+				}	else {alert(data.status)}
+			});;
+		});
+	</script>
+</body>
+</html>
