@@ -71,15 +71,15 @@ app.get('/text', function(req, res) {
 				fsets 		= contact.fsets.concat(classInfo.fsets)
 								.filter(function(d){return d!==null});
 			
+			testquery = query.msg.toLowerCase().replace(/\"|\'|&|\*|\?/g,"")
 			var bad = false;
 			fsets.forEach(function(filter_name){
-				bad = bad || filters[filter_name](query.msg);
+				bad = bad || filters[filter_name](testquery);
 			});
-			fwords.forEach(function(word){
-				bad = bad || query.msg.toLowerCase().split(' ').indexOf(word) > -1;
-			});
+			bad = bad || new RegExp(fwords.map(function(d) {return d.toLowerCase();}).join('|'),'g')
+				.test(testquery);
 			if(!bad) {
-				sendMsg(query.phone,query.msg,function(err){
+				sendMsg(query.phone,query.msg,function(err,data){
 					if(!err) {
 						res.send("success");
 					}	else	{
