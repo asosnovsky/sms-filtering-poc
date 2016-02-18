@@ -9,15 +9,11 @@ var contacts = config.map(function(u){
 	});
 });
 module.exports = function (number, message, callback) {
-     contacts[0].post({url: 'messages/send', qs: {device: config[0].deviceId, number: number, message: message}}, 
+     contacts[0].post({url: 'messages/send', qs: {device: config[0].deviceId, number: number, message: message.replace(/&#039;/g,'\'')}}, 
      	function (err, httpResponse, body) {
          if (err || httpResponse.statusCode != 200) {
-             console.log('1');
-             console.log(err);
-             console.log(body);
              return callback(clc.red('Error'));
          }
-         console.log(httpResponse, body);
-         callback(err || httpResponse.statusCode != 200);
+         callback(err || httpResponse.statusCode != 200, body);
     });
 };

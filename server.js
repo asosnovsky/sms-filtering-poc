@@ -82,26 +82,37 @@ app.get('/text', function(req, res) {
 				fsets 		= contact.fsets.concat(classInfo.fsets)
 								.filter(function(d){return d!==null});
 			
+			testquery = query.msg.toLowerCase().replace(/\"|\'|&|\*|\?/g,"")
 			var bad = false;
 			fsets.forEach(function(filter_name){
-				bad = bad || filters[filter_name](query.msg);
+				bad = bad || filters[filter_name](testquery);
 			});
-			fwords.forEach(function(word){
-				bad = bad || query.msg.toLowerCase().split(' ').indexOf(word) > -1;
-			});
+			bad = bad || new RegExp(fwords.map(function(d) {return d.toLowerCase();}).join('|'),'g')
+				.test(testquery);
 			if(!bad) {
-				sendMsg(query.phone,query.msg,function(err){
+				sendMsg(query.phone,query.msg,function(err,data){
 					if(!err) {
-						res.send("success");
+						res.json({status:"success",contact:contact});
 					}	else	{
-						res.send(err);
+						res.send({status:err,contact:contact});
 					}
 				});
 			}	else 	{
-				res.send("bad message");
+				res.send({status:"fail",contact:contact});
 			}
 		}	else	{
 			res.send("Failed, phone and msg must be defined.");
+		}
+	});
+});
+
+app.get('/forcetext', function(req,res){
+	var query = url.parse(req.url, true).query;
+	sendMsg(query.phone,query.msg,function(err,data){
+		if(!err) {
+			res.send("success");
+		}	else	{
+			res.send(err);
 		}
 	});
 });
@@ -115,6 +126,19 @@ app.get('/get', function(req, res) {
 app.get('/filter_list',function(req,res){
 	res.json(Object.keys(filters));
 });
+
+app.get('/test',function(req,res){
+	res.sendfile('index.html');
+})
+/*HTTP*/
+// var http = require("http");
+// http.createServer(function (request, response) {
+//       response.writeHead(200, {
+//          'Content-Type': 'text/plain'
+//       });
+//       response.write('Simple Simple Fun')
+//       response.end();
+// }).listen(5002);
 
 app.listen(port);
 console.log('Interceptor Server is on ' + port);

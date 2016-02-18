@@ -1,13 +1,11 @@
 var fs = require('fs');
 
-function filterMethod(string, arr) {
-	var bad = false;
-		arr = arr.map(function(d) {return d.toLowerCase();});
-		
-		string.toLowerCase().replace(/\"|\'|&|\*|/g,"").split(' ').forEach(function(d){
-			bad = bad || (arr.indexOf(d)>-1);
-		});
-		return bad;
+function filterMethod(string, arr) {	
+	var bad = new RegExp(
+		'\\b'+arr.map(
+			function(d){return d.toLowerCase();}).join('\\b|\\b')
+		,'g');
+	return string.search(bad) > -1;
 }
 
 var profJSON;
