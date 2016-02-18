@@ -50,6 +50,10 @@ var classData = {
 	"Girlfriend": {
 		"fwords": ["Ashley"],
 		"fsets"	: []
+	},
+	"NA": {
+		"fwords": [],
+		"fsets"	: []
 	}
 }
 
