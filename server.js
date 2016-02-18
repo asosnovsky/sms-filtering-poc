@@ -36,12 +36,14 @@ var port = process.env.PORT || 8080;
 //-----------------------------------------
 var classData = {
 	"Parent": {
-		"fwords": ["pig","mongol"],
-		"fsets"	: ["profanities","alchohol"]
+		"fwords": [],
+		"fsets"	: ["profanities","alcohol","drugs","marijuana","criminalActivity",
+		           "homophobic","miscInsults","sexualReferences","sexism"]
 	},
 	"Boss": {
 		"fwords": ["money"],
-		"fsets"	: ["profanities","alchohol"]
+		"fsets"	: ["profanities","alcohol","drugs","marijuana","criminalActivity",
+		           "homophobic","miscInsults","sexualReferences","sexism","politicalReferences"]
 	},
 	"Friend": {
 		"fwords": [],
@@ -51,10 +53,19 @@ var classData = {
 		"fwords": ["Ashley"],
 		"fsets"	: []
 	},
+	"Coworker": {
+		"fwords": ["sexism"],
+		"fsets"	: []
+	},
+	"Coworker": {
+		"fwords": ["sexism"],
+		"fsets"	: []
+	},
 	"NA": {
 		"fwords": [],
 		"fsets"	: []
 	}
+
 }
 
 /*Routes*/

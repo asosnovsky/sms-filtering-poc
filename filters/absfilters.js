@@ -17,7 +17,7 @@ module.exports.profanities = function (testString){
 }
 
 
-module.exports.alchohol = function (testString){
+module.exports.alcohol = function (testString){
 	return filterMethod(testString,["drunk","tipsy","intoxicated","drinking","booze"]);
 }
 
@@ -47,7 +47,7 @@ module.exports.miscInsults = function (testString){
 }
 
 module.exports.politicalReferences = function (testString){
-	return filterMethod(testString,["communist","capitalist","fascist","trump","sanders","feminism","feminist","holocaust denial"]);
+	return filterMethod(testString,["communist","capitalist","fascist","trump","sanders","feminism","feminist"]);
 }
 
 module.exports.sexualReferences = function (testString){
