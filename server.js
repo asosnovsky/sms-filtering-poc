@@ -36,34 +36,36 @@ var port = process.env.PORT || 8080;
 //-----------------------------------------
 var classData = {
 	"Parent": {
-		"fwords": [],
+		"fwords": ["knocked up","skip"],
 		"fsets"	: ["profanities","alcohol","drugs","marijuana","criminalActivity",
 		           "homophobic","miscInsults","sexualReferences","sexism"]
 	},
 	"Boss": {
-		"fwords": ["money"],
+		"fwords": ["quit, suck, skip"],
 		"fsets"	: ["profanities","alcohol","drugs","marijuana","criminalActivity",
 		           "homophobic","miscInsults","sexualReferences","sexism","politicalReferences"]
 	},
 	"Friend": {
-		"fwords": [],
+		"fwords": ["cheated on her with her boyfriend","cheated on him with his girlfriend"],
 		"fsets"	: []
 	},
 	"Girlfriend": {
-		"fwords": ["Ashley"],
+		"fwords": ["cheated"],
 		"fsets"	: []
 	},
 	"Coworker": {
-		"fwords": ["sexism"],
-		"fsets"	: []
+		"fwords": [],
+		"fsets"	: ["sexism","homophobic","sexualReferences"]
 	},
-	"Coworker": {
-		"fwords": ["sexism"],
-		"fsets"	: []
+	
+	"Elder": {
+		"fwords": [],
+		"fsets"	: ["profanities",
+		           "homophobic","miscInsults","sexualReferences","sexism"]
 	},
 	"NA": {
 		"fwords": [],
-		"fsets"	: []
+		"fsets"	: ["profanities"]
 	}
 
 }
