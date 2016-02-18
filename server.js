@@ -12,7 +12,7 @@ var express 	= require('express'),
 var getMsg 		= require('./sms/getMessages');
 
 /*Filters*/
-var testf 		= require("./filters/testFilter.js");
+var testf 		= require("./filters/test.js");
 
 /*User Handlers*/
 var usrSaver = require("./usr-handler/test.js");
@@ -35,7 +35,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
 	getMsg(function(err,data){
 		// testf(data.messages["3027776"]);
-		usrSaver(data.usr)
+		testf(data.messages)
 		res.json(data)
 	})
 	
